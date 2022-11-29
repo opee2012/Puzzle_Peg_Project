@@ -15,12 +15,12 @@ The next page has an example of "nice output" … basically a way to clearly see
 * One possible interpretation of Levitin's "shorter sequence" is to count double … or triple … jumps as one jump. I can't think of any other interpretation; can you? In any event, I don't want you to count double jumps specially for this assignment.
 
 
-Initial board
-``    ●
-   ● ●
-  ● ● ●
- ● ● ● ●
-● ● ○ ● ●``
+Initial board  
+    ●  
+   ● ●  
+  ● ● ●  
+ ● ● ● ●  
+● ● ○ ● ●  
 
 Moved 4 to 13, jumping over 8
 >    ●
