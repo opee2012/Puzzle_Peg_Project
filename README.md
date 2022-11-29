@@ -104,8 +104,8 @@ Moved 14 to 12, jumping over 13\
 ● ● ○ ○ ○
 
 Moved 11 to 13, jumping over 12\
-    ○\
-   ○ ○\
-  ○ ○ ○\
- ○ ○ ○ ○\
+        ○\
+      ○ ○\
+    ○ ○ ○\
+  ○ ○ ○ ○\
 ○ ○ ● ○ ○
