@@ -1,5 +1,8 @@
 // In collaboration with ...
 
+import java.util.*;
+
+
 public class puzzle_pegs {
     private static final char peg = 'P'; // Represents Pegs (Done) '\u25CF'
     private static final char hole = 'H'; // Represents Holes (Done) '\u25CB'
@@ -45,11 +48,12 @@ public class puzzle_pegs {
         { 15, 14, 13 }
     };
 
-    // Board History (Linked List?)
+    // Board History (Array list)
+    private List<char[]> boardHist;
     
-
-    // Jumps History (Linked List?)
-
+    
+    // Jumps History (Array list)
+    private List<String> jumpHist;
 
     // Starting hole location
     int startLoc = 1;
@@ -69,7 +73,8 @@ public class puzzle_pegs {
             this.startLoc = startLoc;
         }
 
-        // Initiate board and jump history
+        boardHist = new ArrayList<>();
+        jumpHist = new ArrayList<>();
     }
 
     /**
@@ -85,34 +90,52 @@ public class puzzle_pegs {
         }
     }
 
-    public void solve() {
+    public boolean solve() {
         // build board
-
-        // solve puzzle
-            // print the moves and output
-    }
-
-    private void solveRecur(char[] board) {
-        // go through every possible move
-            // match PPH pattern
-            // record board history
-            
-
-    }
-
-    /* public char[] buildBoard() {
         char[] board = new char[16];
         board[0] = ' '; // Unused Null Space
-        for (var i = 1; i < board.length; i++) {
+        
+        for (int i = 1; i < board.length; i++) {
             if (startLoc == i) {
                 board[i] = hole;
             } else {
                 board[i] = peg;
             }
         }
-        
-        return board;
-    } */
+
+        // store original board
+        var original = board.clone();
+
+        // solve puzzle
+        if (solveRecur(board)) {
+            System.out.println("Initial Board");
+            printBoard(original);
+
+            int boardHistSize = boardHist.size();
+
+            // Print boards for solved & the board history
+            for (int i = 1; i < boardHistSize; i++) { 
+                // Print jump history
+                System.out.println(jumpHist.get(boardHistSize - i));
+                printBoard(boardHist.get(i - 1));
+            }
+            return true;
+        } else {
+            System.out.println("No solution can be found.");
+            return false;
+        } 
+    }
+
+    /**
+     * Recursive function making use of backtracking
+     */
+    private boolean solveRecur(char[] board) {
+        // go through every possible move
+            // match PPH pattern
+            // record board history
+            
+
+    }
 
     /* Done */
     private static void printBoard(char[] Board) {
