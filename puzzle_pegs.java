@@ -4,8 +4,8 @@ import java.util.*;
 
 
 public class puzzle_pegs {
-    private static final char peg = 'P'; // Represents Pegs (Done) '\u25CF'
-    private static final char hole = 'H'; // Represents Holes (Done) '\u25CB'
+    private static final char peg = '\u25CF'; // Represents Pegs
+    private static final char hole = '\u25CB'; // Represents Holes
 
     /* Done */
     // 2D array representing all possible moves
@@ -56,21 +56,29 @@ public class puzzle_pegs {
     private List<String> jumpHist;
 
     // Starting hole location
-    int startLoc = 1;
+    int startLoc;
 
     // Ending hole location - (optional)
+    int endLoc;
 
     /**
      * Constructor
      * 
      * @param startLoc The starting location of the hole
+     * @param endLoc The ending locaton of a peg
      */
-    puzzle_pegs(int startLoc) throws IllegalArgumentException {
+    puzzle_pegs(int startLoc, int endLoc) throws IllegalArgumentException {
         // Assign starting hole location
         if (!maintainBounds(startLoc)) {
             throw new IllegalArgumentException("Invalid starting hole, must be range from 1 to 15.");
         } else {
             this.startLoc = startLoc;
+        }
+
+        if ((!maintainBounds(endLoc)) && (endLoc != -1)) {
+            throw new IllegalArgumentException("Ending location must range between 1 and 15.");
+        } else {
+            this.endLoc = endLoc;
         }
 
         boardHist = new ArrayList<>();
@@ -144,6 +152,7 @@ public class puzzle_pegs {
                 boardHist.add(clonedBoard);
 
                 if (solveRecur(board)) {
+                    // record jump
                     jumpHist.add("Moved " + jump[0] + " to " + jump[2] + ", jumping over " + jump[1]);
                     return true;
                 }
@@ -159,7 +168,9 @@ public class puzzle_pegs {
         for (var c : board) {
             if (c == peg) count++;
         }
-        if (count == 1) return true;
+        
+        if ((count == 1) && (endLoc == -1)) return true;
+        else if ((count == 1) && (board[endLoc] == peg)) return true;
         else return false;
 
     
@@ -177,8 +188,7 @@ public class puzzle_pegs {
 
     public static void main(String[] args) {
         
-        puzzle_pegs puzzle = new puzzle_pegs(3);
+        puzzle_pegs puzzle = new puzzle_pegs(1, -1);
         puzzle.solve();
     }
 }
-
