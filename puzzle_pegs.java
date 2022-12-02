@@ -155,7 +155,7 @@ public class puzzle_pegs {
 
                 if (solveRecur(board)) {
                     // record jump
-                    jumpHist.add("Moved " + jump[0] + " to " + jump[2] + ", jumping over " + jump[1]);
+                    jumpHist.add("\nMoved " + jump[0] + " to " + jump[2] + ", jumping over " + jump[1]);
                     return true;
                 }
 
@@ -190,7 +190,14 @@ public class puzzle_pegs {
 
     public static void main(String[] args) {
         
-        puzzle_pegs puzzle = new puzzle_pegs(1, -1);
+        int startPeg = Integer.parseInt(args[0]);
+        int endPeg = 0;
+
+        if (args.length == 1) endPeg = -1; 
+        else endPeg = Integer.parseInt(args[1]);
+        
+        puzzle_pegs puzzle = new puzzle_pegs(startPeg, endPeg);
         puzzle.solve();
+
     }
 }
