@@ -127,6 +127,8 @@ public class puzzle_pegs {
                 System.out.println(jumpHist.get(boardHistSize - i));
                 printBoard(boardHist.get(i - 1));
             }
+            System.out.println(jumpHist.get(0));
+            printBoard(boardHist.get(boardHistSize - 1));
             return true;
         } else {
             System.out.println("No solution can be found.");
