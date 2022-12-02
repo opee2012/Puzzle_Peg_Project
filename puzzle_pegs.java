@@ -83,7 +83,7 @@ public class puzzle_pegs {
      * @param argValue
      */
     private static boolean maintainBounds(int argValue) {
-        if ((argValue >= 1) && (argValue <= 15)) {
+        if ((argValue > 0) && (argValue <= 15)) {
             return true;
         } else {
             return false;
@@ -123,18 +123,46 @@ public class puzzle_pegs {
         } else {
             System.out.println("No solution can be found.");
             return false;
-        } 
+        }
     }
 
     /**
      * Recursive function making use of backtracking
      */
     private boolean solveRecur(char[] board) {
-        // go through every possible move
+        // go through every possible jump
+        for (var jump : moves) {
             // match PPH pattern
-            // record board history
+            if ((board[jump[0]] == peg) && (board[jump[1]] == peg) && (board[jump[2]] == hole)) {
+                // make the jump
+                board[jump[0]] = hole;
+                board[jump[1]] = hole;
+                board[jump[2]] = peg;
             
+                // record new board in history
+                var clonedBoard = board.clone();
+                boardHist.add(clonedBoard);
 
+                if (solveRecur(board)) {
+                    jumpHist.add("Moved " + jump[0] + " to " + jump[2] + ", jumping over " + jump[1]);
+                    return true;
+                }
+
+                boardHist.remove(boardHist.size() - 1);
+                board[jump[0]] = peg;
+                board[jump[1]] = peg;
+                board[jump[2]] = hole;
+            }
+        }
+
+        int count = 0;
+        for (var c : board) {
+            if (c == peg) count++;
+        }
+        if (count == 1) return true;
+        else return false;
+
+    
     }
 
     /* Done */
@@ -149,7 +177,8 @@ public class puzzle_pegs {
 
     public static void main(String[] args) {
         
-        printBoard(buildBoard());
+        puzzle_pegs puzzle = new puzzle_pegs(3);
+        puzzle.solve();
     }
 }
 
