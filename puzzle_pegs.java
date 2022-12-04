@@ -193,16 +193,18 @@ public class puzzle_pegs {
         int startPeg = 13; 
         int endPeg = 13;
 
+        //one command line argument
         if (args.length == 1) {
             startPeg = Integer.parseInt(args[0]);
             endPeg = -1;
         }
 
-        //just ignore all commands after the second
+        //more than one-- just ignore all commands after the second
         if (args.length > 1) {
             endPeg = Integer.parseInt(args[1]);
         }
 
+        //if the number of command line arguments isn't 1 or more, solve default problem
         else {
             puzzle_pegs defaultBoard = new puzzle_pegs(startPeg, endPeg);
             defaultBoard.solve();
