@@ -51,7 +51,6 @@ public class puzzle_pegs {
     // Board History (Array list)
     private List<char[]> boardHist;
     
-    
     // Jumps History (Array list)
     private List<String> jumpHist;
 
@@ -189,12 +188,25 @@ public class puzzle_pegs {
 
 
     public static void main(String[] args) {
-        
-        int startPeg = Integer.parseInt(args[0]);
-        int endPeg = 0;
 
-        if (args.length == 1) endPeg = -1; 
-        else endPeg = Integer.parseInt(args[1]);
+        //initialize at default instance for the problem
+        int startPeg = 13; 
+        int endPeg = 13;
+
+        if (args.length == 1) {
+            startPeg = Integer.parseInt(args[0]);
+            endPeg = -1;
+        }
+
+        //just ignore all commands after the second
+        if (args.length > 1) {
+            endPeg = Integer.parseInt(args[1]);
+        }
+
+        else {
+            puzzle_pegs defaultBoard = new puzzle_pegs(startPeg, endPeg);
+            defaultBoard.solve();
+        }
         
         puzzle_pegs puzzle = new puzzle_pegs(startPeg, endPeg);
         puzzle.solve();
